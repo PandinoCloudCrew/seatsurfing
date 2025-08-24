@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.40.1](https://github.com/PandinoCloudCrew/seatsurfing/compare/v1.40.0...v1.40.1) (2025-08-24)
+
+
+### Bug Fixes
+
+* **ci:** set owner value to lowercase ([#5](https://github.com/PandinoCloudCrew/seatsurfing/issues/5)) ([7c9dce0](https://github.com/PandinoCloudCrew/seatsurfing/commit/7c9dce0d2e882f5629ed91b294f31117ae3f293d))
+
 ## [1.40.0](https://github.com/PandinoCloudCrew/seatsurfing/compare/v1.39.4...v1.40.0) (2025-08-24)
 
 
