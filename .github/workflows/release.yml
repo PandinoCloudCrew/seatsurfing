@@ -11,6 +11,7 @@ permissions:
 
 env:
   REGISTRY: ghcr.io
+  OWNER: ${{ github.repository_owner }}
 
 jobs:
 
@@ -35,13 +36,6 @@ jobs:
         key: ${{ runner.os }}-buildx-${{ github.sha }}
         restore-keys: |
           ${{ runner.os }}-buildx-
-    - name: Log into docker.io registry
-      if: github.event_name != 'pull_request'
-      uses: docker/login-action@v3
-      with:
-        registry: docker.io
-        username: seatsurfing
-        password: ${{ secrets.CI_REGISTRY_PASSWORD }}
     - name: Log into ghcr.io registry
       if: github.event_name != 'pull_request'
       uses: docker/login-action@v3
@@ -57,9 +51,7 @@ jobs:
         platforms: linux/amd64,linux/arm64
         push: true
         tags: |
-          ${{ env.REGISTRY }}/seatsurfing/backend:${{ env.CI_VERSION }}
-          ${{ env.REGISTRY }}/seatsurfing/backend:latest
-          docker.io/seatsurfing/backend:${{ env.CI_VERSION }}
-          docker.io/seatsurfing/backend:latest
+          ${{ env.REGISTRY }}/${{ env.OWNER }}/backend:${{ env.CI_VERSION }}
+          ${{ env.REGISTRY }}/${{ env.OWNER }}/backend:latest
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new
