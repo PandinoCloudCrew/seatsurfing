@@ -21,6 +21,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v5
+    - name: Set lowercase owner env
+      run: echo "OWNER_LC=$(echo '${{ env.OWNER }}' | tr '[:upper:]' '[:lower:]')" >> "$GITHUB_ENV"
     - name: Set version env
       run: echo "CI_VERSION=$(cat version.txt | awk NF)" >> $GITHUB_ENV
     - name: Set date env
@@ -51,7 +53,7 @@ jobs:
         platforms: linux/amd64,linux/arm64
         push: true
         tags: |
-          ${{ env.REGISTRY }}/${{ env.OWNER }}/backend:${{ env.CI_VERSION }}
-          ${{ env.REGISTRY }}/${{ env.OWNER }}/backend:latest
+          ${{ env.REGISTRY }}/${{ env.OWNER_LC}}/backend:${{ env.CI_VERSION }}
+          ${{ env.REGISTRY }}/${{ env.OWNER_LC }}/backend:latest
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new

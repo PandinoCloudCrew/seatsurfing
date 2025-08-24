@@ -29,6 +29,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v5
+    - name: Set lowercase owner env
+      run: echo "OWNER_LC=$(echo '${{ env.OWNER }}' | tr '[:upper:]' '[:lower:]')" >> "$GITHUB_ENV"
     - name: Set version env
       run: echo "CI_VERSION=$(cat version.txt | awk NF)" >> $GITHUB_ENV
     - name: Set up QEMU
@@ -57,6 +59,6 @@ jobs:
         platforms: linux/amd64,linux/arm64
         push: true
         tags: |
-          ${{ env.REGISTRY }}/${{ env.OWNER }}/backend:dev
+          ${{ env.REGISTRY }}/${{ env.OWNER_LC }}/backend:dev
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new
